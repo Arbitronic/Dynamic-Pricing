@@ -6,6 +6,8 @@ library(gridExtra)
 
 rm(list = ls())
 
+# Intialization of variables 
+
 initializiation <- function(){
   transaction <<- c()
   price_index <<- c()
@@ -30,7 +32,7 @@ initializiation <- function(){
 }
 initializiation() 
 
-
+# This is the seller, who sells by drawing prices from a uniform distribution. 
 ZI_C_Seller <- function(){
   
   upper_limit <- 200
@@ -38,7 +40,7 @@ ZI_C_Seller <- function(){
   
   
   capacity <<- sample(lower_limit:upper_limit, size =1 , replace = TRUE)
-  costs <<- sample(lower_limit:(upper_limit/capacity), size = 1, replace = TRUE)
+  costs <<- sample(lower_limit:(upper_limit/capacity), size = 1, replace = TRUE) # costs are determined by upper_limit up to maximum capacity
   q_supply_critical <<- capacity*(2/3)
   profit_margin <<- sample(lower_limit:(costs*0.1), size = 1, replace = TRUE)
   
@@ -58,6 +60,7 @@ ZI_C_Seller <- function(){
   print(paste("upcharge", upcharge))
 }
 
+# This is the buying party who draws his quantity demand from a uniform distribution
 ZI_C_Buyer <- function() {
   q_bid_i <<-c()
   upper_limit <- 200
@@ -84,7 +87,7 @@ ZI_C_Buyer()
 
 
 
-
+# Prices get matched at the market
 Dynamic_Pricing_Market <- function(){
   
 Commodity <<- c("Energy")
@@ -99,7 +102,7 @@ ZI_C_Seller()
 
     
     #cost_plus_pricing <- q_bid*costs + basic_fee
-    critical_peak <- q_supply_critical < q_bid
+    critical_peak <- q_supply_critical < q_bid # This condition matches quantities by seller and by bidder
     
     p <- p + 1
     k <- k + 1
